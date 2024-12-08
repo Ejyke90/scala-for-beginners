@@ -1,0 +1,8 @@
+FROM scala:3.3.1
+
+WORKDIR /app
+
+COPY build.sbt .
+COPY src src
+
+RUN sbt build

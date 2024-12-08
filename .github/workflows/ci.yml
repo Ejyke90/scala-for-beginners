@@ -11,11 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Scala Environment
-        uses: actions/setup-docker@v3
-        with:
-          docker-version: 'latest'
-
       - name: Build the Project
-        run: |
-          docker run --rm -v "${GITHUB_WORKSPACE}:/app" scala:3.3.1 sbt build
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+          tags: [my-scala-build]
+          file: ./Dockerfile
