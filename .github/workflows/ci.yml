@@ -1,19 +1,12 @@
-name: Scala CI
-
-on:
-  push:
-    branches: '*'
-
+# Correct: Comma added
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Build the Project
-        uses: docker/build-push-action@v3
+      - name: Set up Scala
+        uses: actions/setup-scala@v3
         with:
-          push: false
-          tags: [my-scala-build]
-          file: ./Dockerfile
+          scala-version: '3.3.1'
+      - name: Build the Project
+        run: sbt build
