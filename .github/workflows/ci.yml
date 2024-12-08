@@ -1,3 +1,9 @@
+name: Scala CI
+
+on:
+  push:
+    branches: '*'
+
 # Correct: Comma added
 jobs:
   build:
