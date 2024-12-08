@@ -21,9 +21,10 @@ jobs:
           java-version: '11'
 
       - name: Set up Scala
-        uses: actions/setup-scala@v3
-        with:
-          scala-version: '3.3.1'
+        run: |
+          echo "Installing Scala..."
+          sudo apt-get update
+          sudo apt-get install -y scala
 
       - name: Cache SBT
         uses: actions/cache@v3
