@@ -3,16 +3,38 @@ name: Scala CI
 on:
   push:
     branches: '*'
+  pull_request:
+    branches: '*'
 
-# Correct: Comma added
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
       - name: Set up Scala
         uses: actions/setup-scala@v3
         with:
           scala-version: '3.3.1'
+
+      - name: Cache SBT
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.ivy2/cache
+            ~/.sbt
+            ~/.coursier
+          key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
+          restore-keys: |
+            ${{ runner.os }}-sbt-
+
       - name: Build the Project
-        run: sbt build
+        run: sbt compile
