@@ -1,0 +1,25 @@
+name: Scala CI
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Scala
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build and Test
+        uses: coursier/coursier-action@v2
+        with:
+          command: test
